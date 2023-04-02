@@ -1,0 +1,9 @@
+version: '3.4'
+
+services:
+  shopping.client:
+    platform: linux/amd64
+    image: ${DOCKER_REGISTRY-}shopping
+    build:
+      context: .
+      dockerfile: Shopping.Client/Dockerfile
