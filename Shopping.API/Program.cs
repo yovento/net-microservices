@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Versioning;
+using Shopping.API.Data;
 using Shopping.API.Swagger;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,6 +22,7 @@ builder.Services.AddApiVersioning(options =>
                                                     new HeaderApiVersionReader("x-api-version"),
                                                     new MediaTypeApiVersionReader("x-api-version"));
 });
+builder.Services.AddScoped<ProductContext>();
 
 // Add ApiExplorer to discover versions
 builder.Services.AddVersionedApiExplorer(setup =>

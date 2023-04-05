@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Driver;
 using Shopping.API.Data;
 using Shopping.API.Models;
 
@@ -10,17 +11,19 @@ namespace Shopping.API.Controllers.v2
     [Route("api/v{version:apiVersion}/[controller]")]
     public class ProductsController
     {
+        private readonly ProductContext _context;
         private readonly ILogger<ProductsController> _logger;
 
-        public ProductsController(ILogger<ProductsController> logger)
+        public ProductsController(ProductContext context, ILogger<ProductsController> logger)
         {
-            this._logger = logger;
+            _context = context ?? throw new ArgumentNullException(nameof(context));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         [HttpGet]
-        public IEnumerable<Product> Get()
+        public async Task<IEnumerable<Product>> Get()
         {
-            return ProductContext.Products;
+            return await _context.Products.Find(p => true).ToListAsync();
         }
     }
 }
