@@ -7,3 +7,10 @@ services:
     build:
       context: .
       dockerfile: Shopping.Client/Dockerfile
+
+  shopping.api:
+    image: ${DOCKER_REGISTRY-}shopping
+    build:
+      context: .
+      dockerfile: Shopping.API/Dockerfile
+
